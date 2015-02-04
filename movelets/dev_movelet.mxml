@@ -1,0 +1,26 @@
+<MovilizerRequest systemId="${#Project#SystemID}" systemPassword="${#Project#Password}" requestTrackingKey=""
+                  useAutoAcknowledge="true" xmlns="http://movilitas.com/movilizer/v12" numResponses="0" >
+    <moveletDelete moveletKey="com.movilizer.html5.graphjs.examples.bars" moveletKeyExtension="DEV" ignoreExtensionKey="false"  />
+    <moveletSet>
+        <movelet moveletKey="com.movilizer.html5.graphjs.examples.bars" moveletVersion="1" moveletKeyExtension="DEV" moveletType="MULTI" initialQuestionKey="#1" >
+            <question type="32" key="#1" title="Bar graph example">
+                <answer key="#1_1" nextQuestionKey="END">
+                    <text>webapp://GraphWebApp/index.html</text>
+                </answer>
+            </question>
+            <moveletStartAssignment>
+                $global:HTML5_Graphjs_Tutorial_config = {
+                    "globals" : {};
+                    "locals" : {};
+                    "masterdataPools" : {}
+                };
+
+                zip = getDocument($document:"HTML5_Graphjs_Tutorial_POOL", "GraphWebApp");
+                deployWebapp(zip, "GraphWebApp");
+            </moveletStartAssignment>
+            <name>Graphjs example</name>
+            <document documentPool="HTML5_Graphjs_Tutorial_POOL" />
+        </movelet>
+        <participant participantKey="${#Project#participantKey}" name="${#Project#participantName}" deviceAddress="${#Project#deviceAddress}" />
+    </moveletSet>
+</MovilizerRequest>
