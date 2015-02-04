@@ -1,13 +1,18 @@
-var APP = (function($, Chart) {
+var APP = (function($, Chart, window) {
     "use strict";
     var myNewChart;
     var maxHeight;
     var maxWidth;
 
     var config = {
-        paddingHeight: 0.5,
-        paddingWidth: 0.5
+        paddingHeight: 0.1,
+        paddingWidth: 0.1
     };
+
+    function setMaxSize(height, width) {
+        maxHeight = height;
+        maxWidth = width;
+    }
 
     function getPreferedHeight(percentOfAvailableScreen) {
         return maxHeight * percentOfAvailableScreen;
@@ -17,10 +22,29 @@ var APP = (function($, Chart) {
         return maxWidth * percentOfAvailableScreen;
     }
 
+    function setCanvasSize(canvas) {
+        canvas.height = getPreferedHeight(1 - config.paddingHeight);
+        canvas.width = getPreferedWidth(1 - config.paddingWidth);
+    }
+
+    function connectEvents(){
+        var ctx = $("#myChart").get(0).getContext("2d");
+        //Set onResize in case they change to portrait mode
+        $(window).on('resize', function(){
+            var win = $(this); //this = window
+            setMaxSize(win.height(), win.width());
+
+            //Set container size
+            $("#chart-frame").height(maxHeight).width(maxWidth);
+
+            //Set graph size
+            setCanvasSize(ctx.canvas);
+            myNewChart.update();
+        });
+    }
+
     var app = {
         init: function(height, width) {
-            maxHeight = height;
-            maxWidth = width;
             // Set defaults
             Chart.defaults.global = {
                 // Boolean - Whether to animate the chart
@@ -77,7 +101,7 @@ var APP = (function($, Chart) {
                 scaleFontColor: "#666",
 
                 // Boolean - whether or not the chart should be responsive and resize when the browser does.
-                responsive: true,
+                responsive: false,
 
                 // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
                 maintainAspectRatio: true,
@@ -146,10 +170,16 @@ var APP = (function($, Chart) {
                 onAnimationComplete: function(){}
             };
 
+            // Set container to max screen size
+            setMaxSize(height, width);
+            $("#chart-frame").height(maxHeight).width(maxWidth);
+
             // Get context with jQuery - using jQuery's .get() method.
             var ctx = $("#myChart").get(0).getContext("2d");
-            ctx.canvas.height = getPreferedHeight(1 - config.paddingHeight);
-            ctx.canvas.width = getPreferedWidth(1 - config.paddingWidth);
+            setCanvasSize(ctx.canvas);
+
+            //Listen to events changes
+            connectEvents();
             // This will get the first returned node in the jQuery collection.
             myNewChart = new Chart(ctx).Bar(data, options);
         },
@@ -232,4 +262,4 @@ var APP = (function($, Chart) {
     };
 
     return app;
-})(jQuery, Chart);
+})(jQuery, Chart, window);
