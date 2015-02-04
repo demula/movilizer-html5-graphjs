@@ -29,8 +29,22 @@ var APP = (function($, Chart, window) {
 
     function connectEvents(){
         var ctx = $("#myChart").get(0).getContext("2d");
-        //Set onResize in case they change to portrait mode
+
+        //Listen to size changes when using the desktop client
         $(window).on('resize', function(){
+            var win = $(this); //this = window
+            setMaxSize(win.height(), win.width());
+
+            //Set container size
+            $("#chart-frame").height(maxHeight).width(maxWidth);
+
+            //Set graph size
+            setCanvasSize(ctx.canvas);
+            myNewChart.update();
+        });
+
+        //Set onResize in case they change to portrait mode
+        $(window).on('orientationchange', function() {
             var win = $(this); //this = window
             setMaxSize(win.height(), win.width());
 
