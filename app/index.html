@@ -32,7 +32,7 @@
             app.init();
         };
         //To avoid racing conditions this is best (don't use onload or on domReady)
-        document.addEventListener("deviceReady", deviceReady, false);
+        document.addEventListener("deviceready", deviceReady, false);
         return deviceReady;
     }(document, jQuery, APP));
 </script>
