@@ -85,7 +85,17 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+#chart-frame {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
 
+#myChart {
+    align-self: center;
+}
 
 
 
