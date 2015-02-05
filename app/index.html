@@ -17,31 +17,37 @@
     <!-- External JS libraries that absolutly have to load from the very beginning -->
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     <script src="js/vendor/jquery-2.1.3.min.js"></script>
+    <!--<script src="js/vendor/Chart.js"></script>-->
+    <!--<script src="js/vendor/Chart.Bar.js"></script>-->
     <script src="js/vendor/Chart.min.js"></script>
 </head>
 
 <body>
 <div id="chart-frame">
-    <canvas id="myChart" width="100" height="50"></canvas>
+    <canvas id="myChart" width="210" height="210"></canvas>
+    <div id="infoHeader">
+        </span>
+    </div>
+    <table id="monthReadingsTable"></table>
+    <div id="footerButton"></div>
 </div>
 
 </body>
 <!-- User scripts -->
 <!-- App -->
+<script src="js/consumptionChart.js"></script>
+<script src="js/info_table.js"></script>
 <script src="js/app.js"></script>
 <script type="text/javascript">
-    var ON_DEVICE_READY = (function (document, window, jQuery, app) {
+    var ON_DEVICE_READY = (function (document, jQuery, app) {
         var deviceReady = function() {
             jQuery.noConflict();
-            var win = jQuery(this); //this = window
-            var maxHeight = win.height();
-            var maWidth = win.width();
-            app.init(maxHeight, maWidth);
+            app.init();
         };
         //To avoid racing conditions this is best (don't use onload or on domReady)
         document.addEventListener("deviceready", deviceReady, false);
         return deviceReady;
-    }(document, window, jQuery, APP));
+    }(document, jQuery, APP));
 </script>
 
 
