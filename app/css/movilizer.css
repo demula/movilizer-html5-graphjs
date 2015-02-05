@@ -86,15 +86,12 @@ textarea {
    Author's custom styles
    ========================================================================== */
 #chart-frame {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
+    height: 100% !important;
+    width: 100% !important;
 }
 
 #myChart {
-    align-self: center;
+    margin: 1em;
 }
 
 

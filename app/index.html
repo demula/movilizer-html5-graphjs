@@ -33,8 +33,9 @@
     var ON_DEVICE_READY = (function (document, window, jQuery, app) {
         var deviceReady = function() {
             jQuery.noConflict();
-            var maxHeight = window.innerHeight;
-            var maWidth = window.innerWidth;
+            var win = jQuery(this); //this = window
+            var maxHeight = win.height();
+            var maWidth = win.width();
             app.init(maxHeight, maWidth);
         };
         //To avoid racing conditions this is best (don't use onload or on domReady)
