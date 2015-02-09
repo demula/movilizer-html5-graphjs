@@ -1,12 +1,19 @@
 var SELECT_UTIL = (function($, chart) {
     "use strict";
-    var replaceToken = "{{unit}}";
-    var headerTemplate = 'Verbrauch für 2014 in ' + replaceToken;
+    var unitToken = "${unit}";
+    var branchToken = '${branch}';
+    var headerTemplate = branchToken + 'verbrauch für 2014 in ' + unitToken;
 
     var units = {
         electricity: "KWh",
-        gas: "m3",
+        gas: "KWh",
         water: "m3"
+    };
+
+    var branches = {
+            electricity: "Strom",
+            gas: "Gas",
+            water: "Wasser"
     };
 
     var colors = {
@@ -64,7 +71,10 @@ var SELECT_UTIL = (function($, chart) {
     };
 
     function setText(util){
-        $("#infoHeader").html(headerTemplate.replace(replaceToken, units[util]));
+    	var headerText = headerTemplate;
+    	headerText = headerText.replace(branchToken, branches[util]);
+    	headerText = headerText.replace(unitToken, units[util]);
+        $("#infoHeader").html(headerText);
     }
 
     function setGraphValues(util) {
