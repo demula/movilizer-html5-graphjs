@@ -1,4 +1,4 @@
-var APP = (function($, window, chart, table) {
+var APP = (function($, window, chart, select) {
     "use strict";
 
     var app = {
@@ -7,9 +7,9 @@ var APP = (function($, window, chart, table) {
             var maxHeight = win.height();
             var maxWidth = win.width();
             chart.init(maxHeight, maxWidth);
-            table.init();
+            select.init();
         }
     };
 
     return app;
-})(jQuery, window, CONSUPMTION_CHART, INFO_TABLE);
+})(jQuery, window, CONSUPMTION_CHART, SELECT_UTIL);

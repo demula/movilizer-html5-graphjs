@@ -17,28 +17,10 @@ var CONSUPMTION_CHART = (function($, Chart, window) {
         white: "rgba(255,255,255,1)"
     };
 
-    var highlightColors = {
-        blue: "rgba(8,65,155,1)",
-        gray: "rgba(236,236,236,1)",
-        white: "rgba(255,255,255,1)"
-    };
-
-    var data = {
-        labels: ["JAN", "FEB", "MÄR", "APR", "MAI", "JUN", "JUL", "AUG", "SEP", "OKT", "NOV", "DEZ"],
-        datasets: [
-            {
-                label: "kWh",
-                fillColor: colors.blue,
-                strokeColor: colors.blue,
-                highlightFill: highlightColors.blue,
-                highlightStroke: highlightColors.blue,
-                data: [130, 122, 125, 120, 121, 115, 102, 110, 108, 119, 126, 133]
-            }
-        ]
-    };
+    var data = {};
 
     var options = {
-        animation: false,
+        animation: true,
 
         // String - Scale label font declaration for the scale label
         scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
@@ -59,7 +41,7 @@ var CONSUPMTION_CHART = (function($, Chart, window) {
         scaleShowGridLines : false,
 
         //String - Colour of the grid lines
-        scaleGridLineColor : "rgba(0,0,0,.05)",
+        scaleGridLineColor : colors.blue,
 
         //Number - Width of the grid lines
         scaleGridLineWidth : 1,
@@ -293,24 +275,26 @@ var CONSUPMTION_CHART = (function($, Chart, window) {
             setMaxSize(height, width);
             $("#chart-frame").height(maxHeight).width(maxWidth);
 
-            // Get context with jQuery - using jQuery's .get() method.
-            var ctx = $("#myChart").get(0).getContext("2d");
-            setCanvasSize(ctx.canvas);
-
             //Listen to events changes
             connectEvents();
-            // This will get the first returned node in the jQuery collection.
-            options.animation = true;
-            myNewChart = new Chart(ctx).Bar(data, options);
-            options.animation = false;
         },
         chart: myNewChart,
         update: function() {
             myNewChart.update();
         },
+        redraw: function() {
+            // Get context with jQuery - using jQuery's .get() method.
+            var ctx = $("#myChart").get(0).getContext("2d");
+            // This will get the first returned node in the jQuery collection.
+            setCanvasSize(ctx.canvas);
+            myNewChart = new Chart(ctx).Bar(data, options);
+        },
         getBarsAtEvent: function(event) {
             // => activeBars is an array of bars on the canvas that are at the same position as the click event.
             return myNewChart.getBarsAtEvent(event);
+        },
+        setData: function(newData) {
+            data = newData;
         },
         addData: function(valuesArray, label) {
             // The values array passed into addData should be one for each dataset in the chart

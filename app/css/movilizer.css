@@ -98,54 +98,16 @@ textarea {
     color: rgb(8,65,155);
     font-size: 0.8em;
     font-weight: bold;
-    width: 100%;
     height: 2em;
     line-height: 2em;
-}
-
-.eye-icon {
-    display: inline-block;
-    height: 1.8em !important;
-    width: auto;
-    line-height: 2em;
-    float: left;
     margin-left: 1em;
 }
 
-.infoHeaderText {
-    height: 2em;
-    line-height: 2em;
-    margin-left: 0.2em;
+#utilSelect {
+    margin-left: 1em;
+    margin-top: 2em;
 }
 
-table#monthReadingsTable {
-    color: rgb(8,65,155);
-    font-size: 0.8em;
-    width: 100%;
-    padding-left: 3em;
-    padding-right: 1.5em;
-}
-
-table#monthReadingsTable tr {
-    height: 2em;
-}
-
-table#monthReadingsTable tr:nth-child(odd) {
-    background-color: rgb(236,236,236);
-}
-
-.monthReadingsTable-date {
-    width: 70%;
-    text-align: left;
-    padding-left: 3em;
-}
-
-.monthReadingsTable-value {
-    width: 30%;
-    font-weight: bold;
-    text-align: right;
-    padding-right: 2em;
-}
 
 
 
